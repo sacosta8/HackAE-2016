@@ -13,8 +13,9 @@
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <script>
+
       function initMap() {
-        var user = new User("Santos",10,10);
+        var user = new User("Santos",60,60);
         var user_position = {lat :user.latitude,lng: user.longitude};
         var uluru = {lat: -25.363, lng: 131.044};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -37,7 +38,7 @@
       this.latitude = latitude;
       this.longitude = longitude;
       }
-    };
+    }
 
     </script>
     <script async defer
