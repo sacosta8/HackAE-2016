@@ -16,17 +16,36 @@
     </script>
     <script>
       var map;
-      var test;
-      var TestArray=[new User{"hello",10,10}, new User{"world",100,42}];
+  class User {
+      constructor (user,latitude,longitude){
+      this.user = user;
+      this.latitude = latitude;
+      this.longitude = longitude;
+      }
+      };//end of class User
+
+      var TestArray=[new User("hello",10,10), new User("world",15,42)];
     function initMap() {
         var uluru = {lat:10, lng:10};//end of
         map = new google.maps.Map(document.getElementById('map'), {zoom: 4,center: uluru});//end of Map
-        for(i=0,i<TestArray.length;i++){
-            var marker = new google.maps.Marker({position: uluru,map: map});
+
+        for(i=0;i<TestArray.length;i++){
+            var currentUser = TestArray.user;
             var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude));
-            var marker = new google.maps.Marker({position: currentPosition,map: map});
+            new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
+            map.addListener(marker,'click', function(e){
+
+                console.log("hello");
+
+            }(TestArray[i]));
+
         }
         
+
+
+
+
+
         var newMarker=new google.maps.Marker({map: map});
 
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -36,15 +55,7 @@
             newMarker.setPosition(pos);
           });
     }//end of init map
-          class User {
-      constructor (user,latitude,longitude){
-      this.user = user;
-      this.latitude = latitude;
-      this.longitude = longitude;
 
-      //var user_position = {lat :latitude,lng:longitude};
-      }
-      };//end of class User
 
 
     </script>
