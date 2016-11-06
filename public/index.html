@@ -8,6 +8,7 @@
        }
     </style>
         <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
   // Initialize Firebase
     var config = {
@@ -29,11 +30,15 @@
     </script>
 
     <script>
-        $getJSON('',function(data){
+            var map;
+     var TestArray=[];
+        $.getJSON('locations',function(data){
               $.each(data, function(index, element){
                     console.log(JSON.stringify(element));
+                    console.log(element);
+                    TestArray.push(new User(element.name,element.latitude,element.longitude));
                   //newgoogle position(element.name, element.long, element.lat);
-
+                  console.log(TestArray);
               })
 
 
@@ -42,7 +47,6 @@
 
 
 
-      var map;
   class User {
       constructor (user,latitude,longitude){
       this.user = user;
@@ -51,7 +55,6 @@
       }
       };//end of class User
 
-      var TestArray=[new User("hello",10,10), new User("world",15,42)];
     function initMap() {
         var uluru = {lat:10, lng:10};//end of
         map = new google.maps.Map(document.getElementById('map'), {zoom: 4,center: uluru});//end of Map

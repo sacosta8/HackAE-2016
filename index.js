@@ -9,7 +9,7 @@ var app = express()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 db.serialize(function() {
-  db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT)")
+  //db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT)")
 });
 
 // POST /login gets urlencoded bodies
@@ -26,7 +26,7 @@ app.post('/login', urlencodedParser, function (req, res) {
   });
 })
 
-app.post('/newpoint', urlencodedParser, function (req, res) {
+app.post('/locations', urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   res.send('welcome, ' + req.body.fname)
   console.log(req.body.fname);
