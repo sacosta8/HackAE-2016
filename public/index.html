@@ -36,7 +36,7 @@
               $.each(data, function(index, element){
                     console.log(JSON.stringify(element));
                     console.log(element);
-                    TestArray.push(new User(element.name,element.latitude,element.longitude));
+                    TestArray.push(new User(element.name,element.latitude,element.longitude,element.details));
                   //newgoogle position(element.name, element.long, element.lat);
                   console.log(TestArray);
               })
@@ -48,10 +48,11 @@
 
 
   class User {
-      constructor (user,latitude,longitude){
+      constructor (user,latitude,longitude,details){
       this.user = user;
       this.latitude = latitude;
       this.longitude = longitude;
+      this.details=details;
       }
       };//end of class User
 
@@ -60,11 +61,11 @@
         map = new google.maps.Map(document.getElementById('map'), {zoom: 4,center: uluru});//end of Map
 
         for(i=0;i<TestArray.length;i++){
-            var currentUser = TestArray[i].user;
+            var currentUser = TestArray[i].user+": "+TestArray[i].details;
             var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude));
             var currentMarker=new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
             currentMarker.addListener('click', function(){
-               new google.maps.InfoWindow({content:this.title ,map:map, position:this.getPosition()});
+               new google.maps.InfoWindow({content:(this.title) ,map:map, position:this.getPosition()});
                 console.log(this.title);
 
             },(TestArray[i]));

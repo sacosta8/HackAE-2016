@@ -9,7 +9,7 @@ var app = express()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 db.serialize(function() {
-  //db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT)")
+  db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT, details TEXT)")
 });
 
 // POST /login gets urlencoded bodies
@@ -31,7 +31,7 @@ app.post('/locations', urlencodedParser, function (req, res) {
   res.send('welcome, ' + req.body.fname)
   console.log(req.body.fname);
   db.serialize(function() {
-    db.run("INSERT into InfoAndDescription VALUES (\""+req.body.name+"\",\""+req.body.latitude+"\",\""+req.body.longitude+"\")");
+    db.run("INSERT into InfoAndDescription VALUES (\""+req.body.name+"\",\""+req.body.latitude+"\",\""+req.body.longitude+"\",\""+req.body.details+"\")");
 
   });
 })
