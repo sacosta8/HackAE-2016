@@ -30,14 +30,14 @@
         map = new google.maps.Map(document.getElementById('map'), {zoom: 4,center: uluru});//end of Map
 
         for(i=0;i<TestArray.length;i++){
-            var currentUser = TestArray.user;
+            var currentUser = TestArray[i].user;
             var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude));
-            new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
-            map.addListener(marker,'click', function(e){
+            var currentMarker=new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
+            currentMarker.addListener('click', function(){
+               new google.maps.InfoWindow({content:this.title ,map:map, position:this.getPosition()});
+                console.log(this.title);
 
-                console.log("hello");
-
-            }(TestArray[i]));
+            },(TestArray[i]));
 
         }
         
