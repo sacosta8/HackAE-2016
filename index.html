@@ -11,20 +11,29 @@
   <body>
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap">
+    </script>
     <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};//end of
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });//end of Map
+      var map;
+      var test;
+      var TestArray=[new User{"hello",10,10}, new User{"world",100,42}];
+    function initMap() {
+        var uluru = {lat:10, lng:10};//end of
+        map = new google.maps.Map(document.getElementById('map'), {zoom: 4,center: uluru});//end of Map
+        for(i=0,i<TestArray.length;i++){
+            var marker = new google.maps.Marker({position: uluru,map: map});
+            var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude));
+            var marker = new google.maps.Marker({position: currentPosition,map: map});
+        }
+        
+        var newMarker=new google.maps.Marker({map: map});
 
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }//end of init map
+          navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
+            map.setCenter(pos);
 
+<<<<<<< HEAD
 
       navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -50,6 +59,22 @@
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap">
+=======
+            newMarker.setPosition(pos);
+          });
+    }//end of init map
+          class User {
+      constructor (user,latitude,longitude){
+      this.user = user;
+      this.latitude = latitude;
+      this.longitude = longitude;
+
+      //var user_position = {lat :latitude,lng:longitude};
+      }
+      };//end of class User
+
+
+>>>>>>> f3f50f3c42e8f64847646ebaf447bd35014352f6
     </script>
   </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>  
+
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+	<script>
+  // Initialize Firebase
+  	var config = {
+    apiKey: "AIzaSyCTg8WFn9TA5A7ka9wyH3sZd3se4GTEvgQ",
+    authDomain: "uhelp-57606.firebaseapp.com",
+    databaseURL: "https://uhelp-57606.firebaseio.com",
+    storageBucket: "uhelp-57606.appspot.com",
+    messagingSenderId: "574259988662"
+  };
+  firebase.initializeApp(config);
+</script>
+    <script>
+
+    var timeref = firebase.database().ref().child('time');
+    var locationref = firebase.database().ref().child('location');
+    var detsref = firebase.database().ref().child('dets');
+	timeref.on('value', snap => time.innerText=snap.val());
+	locationref.on('value', snap => location.innerTest=snap.val);
+	detsref.on('value', snap => dets.innerTest=snap.val);
+    location=document.getElementById("location").value;
+	time=document.getElementById("time").value;
+	dets=document.getElementById("dets").value;
+
+    </script>
+    </head>
+	<body>
+	<p  id="location">location</p>
+	<p id="time">time estimate</p>
+	<p id="dets">details</p>
+
+	<div><input class="button" type="button" value="Submit" onclick="createDog();"><!--move to main page displaying other dogs--></div>
+  </body>
+</html>
