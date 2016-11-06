@@ -29,6 +29,19 @@
     </script>
 
     <script>
+        $getJSON('',function(data){
+              $.each(data, function(index, element){
+                    console.log(JSON.stringify(element));
+                  //newgoogle position(element.name, element.long, element.lat);
+
+              })
+
+
+
+        })
+
+
+
       var map;
   class User {
       constructor (user,latitude,longitude){
