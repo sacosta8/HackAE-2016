@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
+
+      body {
+        background-color: white;
+        background-image: url("http://img.wallpaperfolder.com/f/41806D3ADB07/16-bit-green-beach-1920x1200px.png");
+      	background-repeat: no-repeat;
+      	background-size: 100%;
+
+      }
+      #form {
+        width: 100px;
+        float:left;
+}
+      #text-field {
+        width:200px;
+        height:30px;
+        font-size: 20px;
+}
+      #sub{
+        padding:5px 15px;
+        background:red;
+        border:0 none;
+        cursor:pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        height: 50px;
+        width: 100px;
+        border-color: black;
+  }
     </style>
   </head>
   <body>
-    <section class="loginform cf">
-<form name="login" action="index_submit" method="get" accept-charset="utf-8">
-  <ul>
-    <li><label for="usermail">Email</label>
-    <input type="email" name="usermail" placeholder="yourname@email.com" required></li>
-    <li><label for="password">Password</label>
-    <input type="password" name="password" placeholder="password" required></li>
-    <li>
-    <input type="submit" value="Login"></li>
-  </ul>
-</form>
-</section>
+    <h1>Hello, world!</h1>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <div id = "form">
+    <section class="loginform">
+  <form name="login" action="demo_php" method="post" accept-charset="utf-8" >
+      <p> <input id = "text-field" type = "text" name ="username" placeholder="Username"></p>
+      <p> <input id = "text-field" type = "text" name ="password" placeholder="Password"></p>
+
+
+
+      <input id ="sub" type="submit" value="Login">
+  </form>
+  </section>
+</div>
   </body>
 </html>
