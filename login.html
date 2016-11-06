@@ -1,55 +1,78 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    #login-div {
+      border-radius:5px;
+      padding-bottom: 10px;
+      padding-top: 25%;
+    }
+    #logo-div {
+      border-radius:5px;
+      padding-bottom: 10px;
+      padding-top: 15%;
 
-      body {
-        background-color: white;
-        background-image: url("http://img.wallpaperfolder.com/f/41806D3ADB07/16-bit-green-beach-1920x1200px.png");
-      	background-repeat: no-repeat;
-      	background-size: 100%;
+    }
+    h1 {
+      font-size: 200px;
+      color: black;
 
-      }
-      #form {
-        width: 100px;
-        float:left;
-}
-      #text-field {
-        width:200px;
-        height:30px;
-        font-size: 20px;
-}
-      #sub{
-        padding:5px 15px;
-        background:red;
-        border:0 none;
-        cursor:pointer;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        height: 50px;
-        width: 100px;
-        border-color: black;
-  }
-    </style>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+    }
+    h2 {
+      color: #546784;
+      font-style: italic;
+    }
+    body {
+      background-color: white;
+      background-image: url("http://img.wallpaperfolder.com/f/41806D3ADB07/16-bit-green-beach-1920x1200px.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
-  <div id = "form">
-    <section class="loginform">
-  <form name="login" action="demo_php" method="post" accept-charset="utf-8" >
-      <p> <input id = "text-field" type = "text" name ="username" placeholder="Username"></p>
-      <p> <input id = "text-field" type = "text" name ="password" placeholder="Password"></p>
+    }
+    input {
+      width:300px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
 
 
 
-      <input id ="sub" type="submit" value="Login">
-  </form>
-  </section>
-</div>
-  </body>
+
+  <div class="container">
+  <div class="row">
+    <div id = "login-div" class="col-md-3">
+
+        <div id = "form">
+        <section class="loginform">
+          <form name="login" action="demo_php" method="post" accept-charset="utf-8" >
+          <p> <input id = "text-field" type = "text" name ="username" placeholder="Username"></p>
+          <p> <input id = "text-field" type = "text" name ="password" placeholder="Password"></p>
+          <input id = "login" type="submit" class="btn btn-danger" value="Login">
+          <input id = "register" type="submit" class="btn btn-info" value="Register">
+        </div>
+    </div>
+      <div class ="col-md-2"></div>
+      <div id = "logo-div" class="col-md-7">
+
+            <h1 class="text-center">uHelp</h1>
+            <h2 class="text-center">Like craigslist, but worse</h2>
+
+      </div>
+
+      <!-- now that we have used up all the 12 coloumbs in this row , lets go create a new "row class" , Alas in the same container -->
+
+  </div>  <!-- end of container -->
+
+
+
+
+</body>
 </html>
