@@ -18,13 +18,18 @@
 </script>
     <script>
 
-    var timeref = firebase.database().ref().child('time');
-    var locationref = firebase.database().ref().child('location');
-    var detsref = firebase.database().ref().child('dets');
-	timeref.on('value', snap => time.innerText=snap.val());
-	locationref.on('value', snap => location.innerTest=snap.val);
-	detsref.on('value', snap => dets.innerTest=snap.val);
-    location=document.getElementById("location").value;
+      var ref = new Firebase("uhelp-57606.firebaseapp.com");
+  function addtoFireBase=
+ class EventDeets{
+      constructor (time,location,dets){
+      this.time = time;
+      this.location = location;
+      this.dets = dets;
+      }
+      };//end of class User
+
+	ref.on('value', snap => time.innerText=snap.val());
+  location=document.getElementById("location").value;
 	time=document.getElementById("time").value;
 	dets=document.getElementById("dets").value;
 
