@@ -37,7 +37,7 @@ app.post('/newpoint', urlencodedParser, function (req, res) {
 })
 
 app.get('/locations', function(req, res) {
-   db.all("SELECT * FROM locss", function(err, row) {
+   db.all("SELECT * FROM InfoAndDescription", function(err, row) {
         res.send(JSON.stringify(row));
     });
 });
