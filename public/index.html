@@ -28,13 +28,12 @@
     </script>
 
     <script>
-            var map;
      var TestArray=[];
         $.getJSON('locations',function(data){
               $.each(data, function(index, element){
                     console.log(JSON.stringify(element));
                     console.log(element);
-                    TestArray.push(new User(element.name,element.latitude,element.longitude,element.details));
+                    TestArray.push(new User(element.name,element.address,element.details));
                   //newgoogle position(element.name, element.long, element.lat);
               })
 
@@ -57,11 +56,11 @@
 
     function initMap() {
         var uluru = {lat:10, lng:10};//end of
-        map = new google.maps.Map(document.getElementById('map'), {zoom: 14,center: uluru});//end of Map
+        var map = new google.maps.Map(document.getElementById('map'), {zoom: 14,center: uluru});//end of Map
 
         for(i=0;i<TestArray.length;i++){
             var currentUser = TestArray[i].user+": "+TestArray[i].details;
-            var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude));
+            var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude)); //change to address 
             var currentMarker=new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
             currentMarker.addListener('click', function(){
                new google.maps.InfoWindow({content:(this.title) ,map:map, position:this.getPosition()});
@@ -84,15 +83,26 @@
           });
     }//end of init map
 
-    function moveit(){
-      window.location = "infoPage.html";
-    }
+  function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value; //get string
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location); //results[0].getometry.location is lat and long
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
 
 
     </script>
     <form action="locations" method="post">
   First name: <input type="text" name="name"><br>
-  Latitude: <input type="text" name="latitude"><br>
+  Address: <input type="text" name="address"><br>
   Longitude: <input type="text" name = "longitude"><br>
   Details: <input type="text" name="details"><br>
   <input type="submit" value="Submit">
