@@ -124,7 +124,10 @@
 
             // Set CSS for the control border.
             var controlUI = document.createElement('div');
-
+            controlUI.setAttribute("id","add-button");
+            if (document.getElementById('location-box').display == "none") {
+              document.getElementById("add-button").style.visibility = "visible";
+            }
 
             controlUI.style.backgroundColor = '#fff';
 
@@ -139,6 +142,8 @@
 
             // Set CSS for the control interior.
             var controlText = document.createElement('div');
+            //controlText.setAttribute("class", "btn btn-primary");
+
             controlText.style.color = 'rgb(25,25,25)';
             controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
             controlText.style.fontSize = '16px';
@@ -155,9 +160,10 @@
 
             controlUI.addEventListener('click', function() {
               addLocation(controlDiv, map)
+
+              this.style.visibility = "hidden";
               map.setZoom(map.getZoom()); //reset zoom
 
-              this.style.visibility= "hidden";
 
 
             });
@@ -169,7 +175,15 @@
             // Set CSS for the control border.
 
 
-            var addLocationBox = document.createElement('div');
+            var addLocationBox = document.getElementById('location-box');
+            var exitButton = document.getElementById('exit-button');
+
+            document.getElementById("location-box").style.display = "block";
+
+            exitButton.setAttribute("class", "btn-primary");
+            exitButton.innerHTML = "X"
+            addLocationBox.appendChild(exitButton)
+
             addLocationBox.style.backgroundColor = '#fff';
             addLocationBox.style.border = '10px solid #fff';
             addLocationBox.style.borderRadius = '3px';
@@ -194,10 +208,17 @@
 
             addLocationBox.appendChild(controlText);
             // Setup the click event listeners: simply set the map to Chicago.
+            exitButton.addEventListener('click', function() {
+              document.getElementById("add-button").style.visibility = "visible";
+              document.getElementById("location-box").style.display = "none";
 
+              map.setZoom(map.getZoom()); //reset zoom
+
+
+
+            });
 
           }
-
 
 
 
@@ -372,10 +393,11 @@
             <br> <textarea  name="description" style="height:200px; width:100%;"></textarea><br>
 
             <input type="submit" value="Submit" type="button" class="btn btn-primary sharp">
-
           </form>
 
 
         </div>
+        <div id ="location-box"></div>
+        <button id = "exit-button"></button>
    </body>
 </html>
