@@ -34,8 +34,7 @@
                     console.log(JSON.stringify(element));
                     console.log(element);
                     TestArray.push(new User(element.name,element.address,element.details));
-                  //newgoogle position(element.name, element.long, element.lat);
-              })
+              })//add to TestArray
 
 
 
@@ -46,10 +45,9 @@
 
 
   class User {
-      constructor (user,latitude,longitude,details){
+      constructor (user,address,details){
       this.user = user;
-      this.latitude = latitude;
-      this.longitude = longitude;
+      this.address = address;
       this.details=details;
       }
       };//end of class User
