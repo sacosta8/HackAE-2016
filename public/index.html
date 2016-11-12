@@ -15,19 +15,9 @@
        }
    \
     </style>
-        <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
-  // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyCTg8WFn9TA5A7ka9wyH3sZd3se4GTEvgQ",
-    authDomain: "uhelp-57606.firebaseapp.com",
-    databaseURL: "https://uhelp-57606.firebaseio.com",
-    storageBucket: "uhelp-57606.appspot.com",
-    messagingSenderId: "574259988662"
-  };
-  firebase.initializeApp(config);
-</script>
+
   </head>
   <body>
     <h1><center>uHelp</center></h1>
@@ -81,13 +71,6 @@
 
         }
         
-        function addOnce(lati,long){
-          var ref= firebase.database().ref();
-            ref.child('user').set({
-              lati:lati,
-              long:long
-            });
-        }
 
 
 
@@ -99,7 +82,6 @@
             var newMarker=new google.maps.Marker({map: map});
               var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
             map.setCenter(pos);
-            addOnce(position.coords.latitude,position.coords.longitude);
             newMarker.setPosition(pos);
              
           });
