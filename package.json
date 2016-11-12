@@ -1,0 +1,27 @@
+{
+  "name": "hackae3",
+  "version": "1.0.0",
+  "description": "uber everywhere",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "package": "^1.0.1",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sacosta8/HackAE-2016.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sacosta8/HackAE-2016/issues"
+  },
+  "homepage": "https://github.com/sacosta8/HackAE-2016#readme"
+}

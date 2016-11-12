@@ -1,79 +1,167 @@
 <!DOCTYPE html>
 <html>
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-
-    <style>
-       #map {
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <style>
+         #map {
          position: absolute;
-
          left: 0;
          right: 0;
          height:100%;
          width:100%
-       }
+         }
+         body{
+         height: 100%;
+         width: 100%
+         }
+         h1{
+         color:black;
+        }
+         #map-canvas{
+         position: absolute;
+         top: 100px;
+         left: 0;
+         bottom: 100px;
+         right: 0;
+         }
+         #form-container{
+           background-color:#ededed;
+           padding-left:20px;
+           padding-right: 20px;
+           visibility: hidden;
+           width: 100%;
+           text-align: left;
 
-       body{
-        height: 100%;
-        width: 100%
-       }
-       h1{
-        color:black;
-       }
-
-              #map-canvas{
-               position: absolute;
-               top: 100px;
-               left: 0;
-               bottom: 100px;
-               right: 0;
-           }
-
-
-    </style>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  </head>
-  <body>
-    <!--<h1><center>uHelp</center></h1> -->
-  <div id="map"></div>
-
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap">
-    </script>
-
-    <script>
-     var TestArray=[];
-        $.getJSON('locations',function(data){
-              $.each(data, function(index, element){
-                    console.log(JSON.stringify(element));
-                    console.log(element);
-                    TestArray.push(new User(element.name,element.address,element.details));
-              })//add to TestArray
+           display: inline-block;
+         }
+         #overlay{
+           height: 100%;
+         }
+         input {
+           height: 100%;
+         }
+         textarea {
+            font-size: 18px;
+            line-height: 1;
+            resize: none;
+         }
 
 
 
-        })
+         .btn {
+             padding: 8px 24px;
+             border: 0 none;
+             font-weight: 700;
+             letter-spacing: 1px;
+             text-transform: uppercase;
+         }
 
-        console.log(TestArray);
+         .btn:focus, .btn:active:focus, .btn.active:focus {
+             outline: 0 none;
+         }
+
+         .btn-primary {
+             background: #0099cc;
+             color: #ffffff;
+         }
+
+         .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+             background: #33a6cc;
+         }
+
+         .btn-primary:active, .btn-primary.active {
+             background: #007299;
+             box-shadow: none;
+         }
+         .btn.sharp {
+           border-radius:0;
+         }
+
+      </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   </head>
+   <body>
+      <!--<h1><center>uHelp</center></h1> -->
+      <div id="map"></div>
 
 
 
-  class User {
-      constructor (user,address,details){
-      this.user = user;
-      this.address = address;
-      this.details=details;
-      }
-      };//end of class User
+      <script async defer
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap"></script>
 
+
+
+      <script>
+         var TestArray=[];
+            $.getJSON('locations',function(data){
+                  $.each(data, function(index, element){
+                        console.log(JSON.stringify(element));
+                        console.log(element);
+                        TestArray.push(new User(element.name,element.address,element.details));
+                  })//add to TestArray
+            })
+
+            console.log(TestArray);
+
+
+
+         class User {
+          constructor (user,address,details){
+          this.user = user;
+          this.address = address;
+          this.details=details;
+          }
+          };//end of class User
+
+
+
+
+
+          function CenterControl(controlDiv, map) {
+
+            // Set CSS for the control border.
+            var controlUI = document.createElement('div');
+            controlUI.setAttribute("id","add-button");
+            if (document.getElementById('location-box').display == "none") {
+              document.getElementById("add-button").style.visibility = "visible";
+            }
+
+            controlUI.style.backgroundColor = '#fff';
+
+            controlUI.style.border = '2px solid #fff';
+            controlUI.style.borderRadius = '3px';
+            controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+            controlUI.style.cursor = 'pointer';
+            controlUI.style.marginBottom = '22px';
+            controlUI.style.textAlign = 'center';
+            controlUI.title = 'Click to add a new request';
+            controlDiv.appendChild(controlUI);
+
+            // Set CSS for the control interior.
+            var controlText = document.createElement('div');
+            //controlText.setAttribute("class", "btn btn-primary");
+
+            controlText.style.color = 'rgb(25,25,25)';
+            controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+            controlText.style.fontSize = '16px';
+            controlText.style.lineHeight = '38px';
+            controlText.style.paddingLeft = '5px';
+            controlText.style.paddingRight = '5px';
+            controlText.innerHTML = 'Add location';
+            controlUI.appendChild(controlText);
+
+            // Setup the click event listeners: simply set the map to Chicago.
+
+
+
+
+            controlUI.addEventListener('click', function() {
+              addLocation(controlDiv, map)
+
+<<<<<<< HEAD
     function initMap() {
         var uluru = {lat:10, lng:10};//end of
         var map = new google.maps.Map(document.getElementById('map'), {zoom: 14,center: uluru});//end of Map
@@ -85,24 +173,60 @@
             currentMarker.addListener('click', function(){
                new google.maps.InfoWindow({content:(this.title) ,map:map, position:this.getPosition()});
                 console.log(this.title);
+=======
+              this.style.visibility = "hidden";
+              map.setZoom(map.getZoom()); //reset zoom
 
-            },(TestArray[i]));
-
-        }
-
-
-
+>>>>>>> 131ab53ae5faa69e4fc71e48403c6665a3d494d5
 
 
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var newMarker=new google.maps.Marker({map: map});
-              var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
-            map.setCenter(pos);
-            newMarker.setPosition(pos);
+            });
 
-          });
-    }//end of init map
+          }
 
+          function addLocation(controlDiv, map) {
+
+            // Set CSS for the control border.
+
+
+            var addLocationBox = document.getElementById('location-box');
+            var exitButton = document.getElementById('exit-button');
+
+            document.getElementById("location-box").style.display = "block";
+
+            exitButton.setAttribute("class", "btn-primary");
+            exitButton.innerHTML = "X"
+            addLocationBox.appendChild(exitButton)
+
+            addLocationBox.style.backgroundColor = '#fff';
+            addLocationBox.style.border = '10px solid #fff';
+            addLocationBox.style.borderRadius = '3px';
+            addLocationBox.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+            //addLocationBox.style.cursor = 'pointer';
+            addLocationBox.style.marginBottom = '22px';
+            addLocationBox.style.textAlign = 'center';
+            addLocationBox.style.paddingRight = '5px';
+            addLocationBox.title = 'Box to add stuff to!!!!!!!!';
+            controlDiv.appendChild(addLocationBox);
+
+            // Set CSS for the control interior.
+            var controlText = document.getElementById('form-container');
+            //controlText.style.color = 'rgb(25,25,25)';
+            controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+            controlText.style.fontSize = '16px';
+            controlText.style.lineHeight = '38px';
+            controlText.style.paddingBottom = '5px';
+            controlText.style.visibility= "visible";
+
+
+
+            addLocationBox.appendChild(controlText);
+            // Setup the click event listeners: simply set the map to Chicago.
+            exitButton.addEventListener('click', function() {
+              document.getElementById("add-button").style.visibility = "visible";
+              document.getElementById("location-box").style.display = "none";
+
+<<<<<<< HEAD
   function geocodeAddress(geocoder, resultsMap) {
         var address = document.getElementById('address').value; //get string
         geocoder.geocode({'address': address}, function(results, status) {
@@ -111,21 +235,194 @@
             var marker = new google.maps.Marker({
               map: resultsMap,
               position: results[0].geometry.location
+=======
+              map.setZoom(map.getZoom()); //reset zoom
+
+
+
             });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+
           }
-        });
-      }
 
 
-    </script>
-    <!--<form action="locations" method="post">
-  First name: <input type="text" name="name"><br>
-  Address: <input type="text" name="address"><br>
-  Longitude: <input type="text" name = "longitude"><br>
-  Details: <input type="text" name="details"><br>
-  <input type="submit" value="Submit">
-</form> -->
-  </body>
+
+
+
+
+
+
+
+
+         function initMap() {
+            var uluru = {lat:10, lng:10};//end of
+            var map = new google.maps.Map(document.getElementById('map'),
+            {zoom: 14,
+            center: uluru,
+
+            styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+
+          });//end of Map
+
+
+          var centerControlDiv = document.createElement('div');
+          var centerControl = new CenterControl(centerControlDiv, map);
+          centerControlDiv.style.paddingTop = "10px";
+          centerControlDiv.setAttribute("id", "overlay");
+
+          centerControlDiv.index = 1;
+          map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+
+
+
+            for(i=0;i<TestArray.length;i++){
+                var currentUser = TestArray[i].user+": "+TestArray[i].details;
+                var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude)); //change to address
+                var currentMarker=new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
+                currentMarker.addListener('click', function(){
+                   new google.maps.InfoWindow({content:(this.title) ,map:map, position:this.getPosition()});
+                    console.log(this.title);
+
+                },(TestArray[i]));
+
+            }
+
+
+
+
+              var center = {}
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var newMarker=new google.maps.Marker({map: map});
+                  var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
+
+
+
+                map.setCenter(pos);
+                newMarker.setPosition(pos);
+
+              });
+
+
+         }//end of init map
+
+         function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value; //get string
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location); //results[0].getometry.location is lat and long
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+>>>>>>> 131ab53ae5faa69e4fc71e48403c6665a3d494d5
+            });
+          }
+
+
+      </script>
+      <!--<form action="locations" method="post">
+         First name: <input type="text" name="name"><br>
+         Address: <input type="text" name="address"><br>
+         Longitude: <input type="text" name = "longitude"><br>
+         Details: <input type="text" name="details"><br>
+         <input type="submit" value="Submit">
+         </form> -->
+        <div id="form-container">
+          <form>
+            <p1>Name: <input type="text" name="firstname"><br></p1>
+            <p1>Last Name: <input type="text" name="lastname"><br></p1>
+            <p1>Address: <input type="text" name="address"><br></p1>
+            <p1>Description: </p1>
+            <br> <textarea  name="description" style="height:200px; width:100%;"></textarea><br>
+
+            <input type="submit" value="Submit" type="button" class="btn btn-primary sharp">
+          </form>
+
+
+        </div>
+        <div id ="location-box"></div>
+        <button id = "exit-button"></button>
+   </body>
 </html>
