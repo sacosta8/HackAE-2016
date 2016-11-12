@@ -8,6 +8,7 @@
 
       <link href="/assets/styles.css" rel="stylesheet" type="text/css" />
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="assets/change-location.js"></script>
    </head>
    <body>
       <!--<h1><center>uHelp</center></h1> -->
@@ -314,15 +315,23 @@
          <input type="submit" value="Submit">
          </form> -->
         <div id="form-container">
-          <form id="location-form" method="POST" action="/map">
-            <p1>Name: <input type="text" name="firstname"><br></p1>
-            <p1>Last Name: <input type="text" name="lastname"><br></p1>
+          <form>
+            <p1>Name: <input type="text" name="item"><br></p1>
+            <!--<p1>Last Name: <input type="text" name="lastname"><br></p1>
             <p1>Address: <input type="text" name="address"><br></p1>
             <p1>Description: </p1>
             <br> <textarea  name="description" style="height:200px; width:100%;"></textarea><br>
+          -->
 
-            <input type="submit" value="submit" type="button" class="btn btn-primary sharp">
+            <button type="submit" value="submit" type="button" class="btn btn-primary sharp">Submit</button>
           </form>
+          <ul>
+            <% for (var i=0; i < data.length; i++){ %>
+              <% if ('item' in data[i]) { %>
+              <li><%= data[i].item %></li>
+                <% } %>
+              <% } %>
+          </ul>
 
 
         </div>
