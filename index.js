@@ -9,7 +9,7 @@ var app = express()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 db.serialize(function() {
-  db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT, details TEXT)");
+  //db.run("CREATE TABLE InfoAndDescription (name TEXT, latitude TEXT, longitude TEXT, details TEXT)");
 });
 
 // POST /login gets urlencoded bodies
