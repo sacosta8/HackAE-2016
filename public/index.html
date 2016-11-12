@@ -27,6 +27,21 @@
          bottom: 100px;
          right: 0;
          }
+         #form-container{
+           background-color:#ededed;
+           padding-left:20px;
+           padding-right: 20px;
+           visibility: hidden;
+           width: 100%;
+
+           display: inline-block;
+         }
+         #overlay{
+           height: 100%;
+         }
+         input {
+           height: 100%;
+         }
       </style>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
    </head>
@@ -67,18 +82,21 @@
 
 
 
-          function CenterControl(controlDiv, map,center) {
+          function CenterControl(controlDiv, map) {
 
             // Set CSS for the control border.
             var controlUI = document.createElement('div');
+
+
             controlUI.style.backgroundColor = '#fff';
+
             controlUI.style.border = '2px solid #fff';
             controlUI.style.borderRadius = '3px';
             controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
             controlUI.style.cursor = 'pointer';
             controlUI.style.marginBottom = '22px';
             controlUI.style.textAlign = 'center';
-            controlUI.title = 'Click to recenter the map';
+            controlUI.title = 'Click to add a new request';
             controlDiv.appendChild(controlUI);
 
             // Set CSS for the control interior.
@@ -89,7 +107,7 @@
             controlText.style.lineHeight = '38px';
             controlText.style.paddingLeft = '5px';
             controlText.style.paddingRight = '5px';
-            controlText.innerHTML = 'Center Map';
+            controlText.innerHTML = 'Add location';
             controlUI.appendChild(controlText);
 
             // Setup the click event listeners: simply set the map to Chicago.
@@ -98,8 +116,47 @@
 
 
             controlUI.addEventListener('click', function() {
-              map.setCenter(center);
+              addLocation(controlDiv, map)
+              map.setZoom(map.getZoom()); //reset zoom
+
+              this.style.visibility= "hidden";
+
+
             });
+
+          }
+
+          function addLocation(controlDiv, map) {
+
+            // Set CSS for the control border.
+
+
+            var addLocationBox = document.createElement('div');
+            addLocationBox.style.backgroundColor = '#fff';
+            addLocationBox.style.border = '10px solid #fff';
+            addLocationBox.style.borderRadius = '3px';
+            addLocationBox.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+            //addLocationBox.style.cursor = 'pointer';
+            addLocationBox.style.marginBottom = '22px';
+            addLocationBox.style.textAlign = 'center';
+            addLocationBox.style.paddingRight = '5px';
+            addLocationBox.title = 'Box to add stuff to!!!!!!!!';
+            controlDiv.appendChild(addLocationBox);
+
+            // Set CSS for the control interior.
+            var controlText = document.getElementById('form-container');
+            //controlText.style.color = 'rgb(25,25,25)';
+            controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+            controlText.style.fontSize = '16px';
+            controlText.style.lineHeight = '38px';
+            controlText.style.paddingBottom = '5px';
+            controlText.style.visibility= "visible";
+
+
+
+            addLocationBox.appendChild(controlText);
+            // Setup the click event listeners: simply set the map to Chicago.
+
 
           }
 
@@ -203,6 +260,14 @@
           });//end of Map
 
 
+          var centerControlDiv = document.createElement('div');
+          var centerControl = new CenterControl(centerControlDiv, map);
+          centerControlDiv.style.paddingTop = "10px";
+          centerControlDiv.setAttribute("id", "overlay");
+
+          centerControlDiv.index = 1;
+          map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
 
 
 
@@ -225,12 +290,6 @@
               navigator.geolocation.getCurrentPosition(function(position) {
                 var newMarker=new google.maps.Marker({map: map});
                   var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
-
-                  var centerControlDiv = document.createElement('div');
-                  var centerControl = new CenterControl(centerControlDiv, map,pos);
-
-                  centerControlDiv.index = 1;
-                  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 
 
@@ -266,5 +325,16 @@
          Details: <input type="text" name="details"><br>
          <input type="submit" value="Submit">
          </form> -->
+        <div id="form-container">
+          <form>
+            <p1>Name:<input type="text" name="firstname"><br></p1>
+            Last name:<br><input type="text" name="lastname"><br>
+            Valid Address:<br><input type="text" name="address"><br>
+            <input type="submit" value="Submit">
+
+          </form>
+
+
+        </div>
    </body>
 </html>
