@@ -1,16 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+var util = require('util');
 var app = express();
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
-
-app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
     res.render('map');
 });
 
-app.listen(3000);
-console.log('listening 3000');
+const port = 3000;
+app.listen(port, function () {
+    console.log('Running on localhost:' + port);
+});
