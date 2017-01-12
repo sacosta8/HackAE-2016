@@ -4,45 +4,25 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-      <link href="/assets/styles.css" rel="stylesheet" type="text/css" />
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link href="/assets/styles.css" rel="stylesheet" type="text/css" />
       <script src="assets/change-location.js"></script>
    </head>
    <body>
-      <!--<h1><center>uHelp</center></h1> -->
+  
 
       <div id="map"></div>
 
 
 
-      <script async defer
-         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkVACP8VPxmvdoF7I6pX4f9Q7ox1Pl5U&callback=initMap"></script>
 
 
 
       <script>
-         var TestArray=[];
-            $.getJSON('locations',function(data){
-                  $.each(data, function(index, element){
-                        console.log(JSON.stringify(element));
-                        console.log(element);
-                        TestArray.push(new User(element.name,element.address,element.details));
-                  })//add to TestArray
-            })
+        
 
-            console.log(TestArray);
-
-
-
-         class User {
-          constructor (user,address,details){
-          this.user = user;
-          this.address = address;
-          this.details=details;
-          }
-          };//end of class User
 
 
 
@@ -260,20 +240,6 @@
 
 
 
-            for(i=0;i<TestArray.length;i++){
-                var currentUser = TestArray[i].user+": "+TestArray[i].details;
-                var currentPosition = (new google.maps.LatLng(TestArray[i].latitude, TestArray[i].longitude)); //change to address
-                var currentMarker=new google.maps.Marker({position:currentPosition,map: map,title:currentUser});
-                currentMarker.addListener('click', function(){
-                   new google.maps.InfoWindow({content:(this.title) ,map:map, position:this.getPosition()});
-                    console.log(this.title);
-
-                },(TestArray[i]));
-
-            }
-
-
-
 
               var center = {}
               navigator.geolocation.getCurrentPosition(function(position) {
@@ -307,32 +273,14 @@
 
 
       </script>
-      <!--<form action="locations" method="post">
-         First name: <input type="text" name="name"><br>
-         Address: <input type="text" name="address"><br>
-         Longitude: <input type="text" name = "longitude"><br>
-         Details: <input type="text" name="details"><br>
-         <input type="submit" value="Submit">
-         </form> -->
+
         <div id="form-container">
           <form>
             <p1>Name: <input type="text" name="item"><br></p1>
-            <!--<p1>Last Name: <input type="text" name="lastname"><br></p1>
-            <p1>Address: <input type="text" name="address"><br></p1>
-            <p1>Description: </p1>
-            <br> <textarea  name="description" style="height:200px; width:100%;"></textarea><br>
-          -->
-
+         
             <button type="submit" value="submit" type="button" class="btn btn-primary sharp">Submit</button>
           </form>
-          <ul>
-            <% for (var i=0; i < data.length; i++){ %>
-              <% if ('item' in data[i]) { %>
-              <li><%= data[i].item %></li>
-                <% } %>
-              <% } %>
-          </ul>
-
+         
 
         </div>
         <div id ="location-box"></div>
